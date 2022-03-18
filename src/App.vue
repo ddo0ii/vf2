@@ -5,49 +5,30 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-toolbar-title>이게앱바지</v-toolbar-title>
       <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+      <v-btn icon to="/about">
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn icon to="/">
+        <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
 
-    <v-main>
+    <v-content>
       <router-view/>
-    </v-main>
+    </v-content>
+    <!-- <v-main>
+      <router-view/>
+    </v-main> -->
+    <!-- vue에서 v-content랑 v-main을 넣으면 되는듯 근데 저자는 main을 썼음 -->
   </v-app>
 </template>
 
 <script>
-
 export default {
   name: 'App',
-
   data: () => ({
     //
   })
