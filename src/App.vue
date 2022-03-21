@@ -7,7 +7,7 @@
       dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>이게앱바지</v-toolbar-title>
+      <site-title :title="title"></site-title>
       <v-spacer></v-spacer>
       <v-btn icon to="/about">
         <v-icon>mdi-heart</v-icon>
@@ -17,38 +17,15 @@
       </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer
-      app
-      v-model="drawer"
-      absolute
-      bottom
-      temporary
-    >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+    <v-navigation-drawer app v-model="drawer">
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">Application</v-list-item-title>
+          <v-list-item-subtitle>subtext</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider></v-divider>
+      <site-menu></site-menu>
     </v-navigation-drawer>
 
     <v-content>
@@ -58,23 +35,22 @@
       <router-view/>
     </v-main> -->
     <!-- vue에서 v-content랑 v-main을 넣으면 되는듯 근데 저자는 main을 썼음 -->
-
-    <v-footer app padless color="primary" dark absolute>
-      <v-col
-        class="text-center"
-        cols="12"
-      >
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
-      </v-col>
-    </v-footer>
+    <site-footer :footer="footer"></site-footer>
   </v-app>
 </template>
 
 <script>
+import SiteTitle from '@/components/site/title'
+import SiteFooter from '@/components/site/footer'
+import SiteMenu from '@/components/site/menu'
+
 export default {
+  components: { SiteTitle, SiteFooter, SiteMenu },
   name: 'App',
   data: () => ({
     drawer: false,
+    title: '나의 타이틀입니다.',
+    footer: '푸터입니다.',
     group: null
   }),
   watch: {
