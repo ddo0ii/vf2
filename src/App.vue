@@ -8,6 +8,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <site-title :title="title"></site-title>
       <v-spacer/>
+      <v-btn icon @click="save"><v-icon>mdi-check</v-icon></v-btn>
     </v-app-bar>
     <v-navigation-drawer app v-model="drawer">
       <site-menu></site-menu>
@@ -18,7 +19,6 @@
     <site-footer :footer="footer"></site-footer>
   </v-app>
 </template>
-
 <script>
 import SiteTitle from '@/components/site/title'
 import SiteFooter from '@/components/site/footer'
@@ -36,6 +36,14 @@ export default {
     }
   },
   mounted () {
+    console.log(this.$firebase)
+  },
+  methods: {
+    save () {
+      this.$firebase.database().ref('board/').child('soyeong').set({
+        title: 'abcd', text: 'tttttt'
+      })
+    }
   }
 }
 </script>
