@@ -8,7 +8,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <site-title :title="title"></site-title>
       <v-spacer/>
-      <v-btn icon @click="save"><v-icon>mdi-check</v-icon></v-btn>
+      <v-btn icon @click="write"><v-icon>mdi-check</v-icon></v-btn>
       <v-btn icon @click="read"><v-icon>mdi-numeric</v-icon></v-btn>
       <v-btn icon @click="readOne"><v-icon>mdi-account-check</v-icon></v-btn>
     </v-app-bar>
@@ -41,9 +41,9 @@ export default {
     console.log(this.$firebase)
   },
   methods: {
-    save () {
+    write () {
       console.log('save@@@')
-      this.$firebase.database().ref().child('abcd').child('abcd').child('abcd').set({
+      this.$firebase.database().ref().child('abcd').set({
         title: 'abcd', text: 'tttttt'
       })
     },
