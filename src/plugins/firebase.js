@@ -5,4 +5,5 @@ import 'firebase/database'
 import firebaseConfig from '../../firebaseConfig'
 
 firebase.initializeApp(firebaseConfig)
+
 Vue.prototype.$firebase = firebase

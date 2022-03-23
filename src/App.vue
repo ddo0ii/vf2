@@ -9,6 +9,8 @@
       <site-title :title="title"></site-title>
       <v-spacer/>
       <v-btn icon @click="save"><v-icon>mdi-check</v-icon></v-btn>
+      <v-btn icon @click="read"><v-icon>mdi-numeric</v-icon></v-btn>
+      <v-btn icon @click="readOne"><v-icon>mdi-account-check</v-icon></v-btn>
     </v-app-bar>
     <v-navigation-drawer app v-model="drawer">
       <site-menu></site-menu>
@@ -40,9 +42,20 @@ export default {
   },
   methods: {
     save () {
-      this.$firebase.database().ref('board/').child('soyeong').set({
+      console.log('save@@@')
+      this.$firebase.database().ref().child('abcd').child('abcd').child('abcd').set({
         title: 'abcd', text: 'tttttt'
       })
+    },
+    read () {
+      this.$firebase.database().ref().child('abcd').on('value', (sn) => {
+        console.log(sn)
+        console.log(sn.val())
+      })
+    },
+    async readOne () {
+      const sn = await this.$firebase.database().ref().child('abcd').once('value')
+      console.log(sn.val())
     }
   }
 }
