@@ -8,9 +8,9 @@
     <v-navigation-drawer app v-model="drawer" width="400">
       <site-menu :items="site.menu"></site-menu>
     </v-navigation-drawer>
-    <v-main>
+    <v-content>
       <router-view/>
-    </v-main>
+    </v-content>
     <site-footer :footer="site.footer"></site-footer>
   </v-app>
 </template>
@@ -47,8 +47,8 @@ export default {
             icon: 'mdi-account',
             subItems: [
               {
-                title: 'xxx',
-                to: '/xxx'
+                title: 'wow',
+                to: '/wow'
               }
             ]
           }
@@ -58,8 +58,6 @@ export default {
       }
     }
   },
-  // 형상 그려진것 없을때 created
-  // 형상 그려진 후에 mounted를 사용 -- 필요 없음
   created () {
     this.subscribe()
   },
