@@ -4,4 +4,5 @@
     "site": {
       ".write": "root.child('users').child(auth.uid).child('level').val().level == 0"
     }
+  }
 }
