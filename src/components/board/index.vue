@@ -12,8 +12,7 @@
           </template>
         </v-data-table>
         <v-card-actions>
-            <v-btn @click="read"><v-icon left>mdi-page-next</v-icon></v-btn>
-            <v-btn @click="openDialog(null)"><v-icon left>mdi-pencil</v-icon></v-btn>
+          <v-btn @click="openDialog(null)"><v-icon left>mdi-pencil</v-icon></v-btn>
         </v-card-actions>
         <v-dialog max-width="500" v-model="dialog">
             <v-card>
@@ -49,13 +48,32 @@ export default {
         content: ''
       },
       dialog: false,
-      seletedItem: null
+      seletedItem: null,
+      unsubscribe: null
     }
   },
   created () {
-    this.read()
+    // this.read()
+    this.subscribe()
+  },
+  // 다른 페이지에 갔을 때에도 구독을 끊지 않고 계속 하기 때문에(계속 리스닝) 구독을 끊어줘야한다. 그래서 destroyed 꼭 필요!
+  destroyed () {
+    if (this.unsubscribe) this.unsubscribe()
   },
   methods: {
+    subscribe () {
+      this.unsubscribe = this.$firebase.firestore().collection('boards').onSnapshot((sn) => {
+        if (sn.empty) {
+          this.items = []
+        }
+        this.items = sn.docs.map(v => {
+          const item = v.data()
+          return {
+            id: v.id, title: item.title, content: item.content
+          }
+        })
+      })
+    },
     openDialog (item) {
       this.seletedItem = item
       this.dialog = true
@@ -74,20 +92,6 @@ export default {
     update () {
       this.$firebase.firestore().collection('boards').doc(this.seletedItem.id).update(this.form)
       this.dialog = false
-    },
-    async read () {
-      const sn = await this.$firebase.firestore().collection('boards').get()
-      sn.docs.forEach(v => {
-        console.log(v.id)
-        console.log(v.data())
-      })
-      this.items = sn.docs.map(v => {
-        const item = v.data()
-        return {
-          id: v.id, title: item.title, content: item.content
-        }
-      })
-      // console.log(this.items)
     },
     remove (item) {
       this.$firebase.firestore().collection('boards').doc(item.id).delete()
