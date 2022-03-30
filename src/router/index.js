@@ -29,7 +29,12 @@ const routes = [
   {
     path: '/board',
     name: 'board',
-    component: () => import(/* webpackChunkName: "about" */ '../components/board/')
+    component: () => import('../components/board/')
+  },
+  {
+    path: '/storage',
+    name: 'storage',
+    component: () => import('../components/storage')
   }
 ]
 
