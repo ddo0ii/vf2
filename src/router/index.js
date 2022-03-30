@@ -40,6 +40,16 @@ const routes = [
     path: '/editor',
     name: 'editor',
     component: () => import('../components/editor')
+  },
+  {
+    path: '/:collection/:document',
+    name: 'collection-document',
+    component: () => import('../components/renderer')
+  },
+  {
+    path: '*',
+    name: 'error',
+    component: () => import('../components/error')
   }
 ]
 
