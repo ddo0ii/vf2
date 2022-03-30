@@ -5,6 +5,8 @@
           :headers="headers"
           :items="items"
           :items-per-page="5"
+          :options.sync="options"
+          :server-items-length="serverItemLength"
         >
           <!-- eslint-disable-next-line -->
           <template v-slot:item.id="{ item }">
@@ -50,20 +52,37 @@ export default {
       },
       dialog: false,
       seletedItem: null,
-      unsubscribe: null
+      unsubscribe: null,
+      unsubscribeCount: null,
+      serverItemLength: 0,
+      options: {}
+    }
+  },
+  watch: {
+    options: {
+      handler (n, o) {
+        console.log(o)
+        console.log(n)
+        this.subscribe()
+      },
+      deep: true
     }
   },
   created () {
     // this.read()
-    this.subscribe()
   },
   // 다른 페이지에 갔을 때에도 구독을 끊지 않고 계속 하기 때문에(계속 리스닝) 구독을 끊어줘야한다. 그래서 destroyed 꼭 필요!
   destroyed () {
     if (this.unsubscribe) this.unsubscribe()
+    if (this.unsubscribeCount) this.unsubscribeCount()
   },
   methods: {
     subscribe () {
-      this.unsubscribe = this.$firebase.firestore().collection('boards').onSnapshot((sn) => {
+      this.unsubscribeCount = this.$firebase.firestore().collection('meta').doc('boards').onSnapshot((doc) => {
+        if (!doc.exists) return
+        this.serverItemLength = doc.data().count
+      })
+      this.unsubscribe = this.$firebase.firestore().collection('boards').limit(this.options.itemsPerPage).onSnapshot((sn) => {
         if (sn.empty) {
           this.items = []
         }
