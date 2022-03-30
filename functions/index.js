@@ -4,7 +4,7 @@ const serviceAccount = require('./key.json')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: functions.config().admin.db_url // 'https://memi-vf2-6d3da-default-rtdb.firebaseio.com'
+  databaseURL: functions.config().admin.db_url
 })
 
 const db = admin.database()
