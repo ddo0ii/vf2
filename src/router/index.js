@@ -35,6 +35,11 @@ const routes = [
     path: '/storage',
     name: 'storage',
     component: () => import('../components/storage')
+  },
+  {
+    path: '/editor',
+    name: 'editor',
+    component: () => import('../components/editor')
   }
 ]
 
