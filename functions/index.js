@@ -27,7 +27,7 @@ exports.deleteUser = functions.auth.user().onDelete(async (user) => {
   db.ref('users').child(uid).remove()
 })
 
-exports.incrementeBoardCount = functions.firestore.document('boards/{bId}').onCreate(async (snap, context) => {
+exports.incrementBoardCount = functions.firestore.document('boards/{bid}').onCreate(async (snap, context) => {
   try {
     await fdb.collection('meta').doc('boards').update('count', admin.firestore.FieldValue.increment(1))
   } catch (e) {
@@ -35,6 +35,6 @@ exports.incrementeBoardCount = functions.firestore.document('boards/{bId}').onCr
   }
 })
 
-exports.decrementeBoardCount = functions.firestore.document('boards/{bId}').onDelete(async (snap, context) => {
-  await fdb.collection('meta').doc('boards').update('count', admin.firestore.FieldValue.increment(1))
+exports.decrementBoardCount = functions.firestore.document('boards/{bid}').onDelete(async (snap, context) => {
+  await fdb.collection('meta').doc('boards').update('count', admin.firestore.FieldValue.increment(-1))
 })
