@@ -4,6 +4,7 @@
         <v-data-table
           :headers="headers"
           :items="items"
+          :items-per-page="5"
         >
           <!-- eslint-disable-next-line -->
           <template v-slot:item.id="{ item }">
