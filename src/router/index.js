@@ -47,6 +47,11 @@ const routes = [
     component: () => import('../components/renderer')
   },
   {
+    path: '/:collection/:document/:action',
+    name: 'collection-document-action',
+    component: () => import('../components/renderer')
+  },
+  {
     path: '*',
     name: 'error',
     component: () => import('../components/error')
