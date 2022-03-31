@@ -9,6 +9,7 @@ import store from '../store/'
 
 firebase.initializeApp(firebaseConfig)
 let unsubscribe = null
+
 const subscribe = (fu) => {
   const ref = firebase.firestore().collection('users').doc(fu.uid)
   unsubscribe = ref.onSnapshot(doc => {
@@ -21,6 +22,7 @@ firebase.auth().onAuthStateChanged((fu) => {
   if (!fu) {
     store.commit('setUser', null)
     if (unsubscribe) unsubscribe()
+    return
   }
   subscribe(fu)
 })
