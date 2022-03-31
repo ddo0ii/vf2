@@ -59,7 +59,7 @@ export default {
       this.$router.push(this.$route.path + '/board-write')
     },
     async articleWrite () {
-      this.$router.push({ path: this.$route.path + '/article-write', query: { articleID: 'new' } })
+      this.$router.push({ path: this.$route.path + '/article-write', query: { articleID: '' } })
     }
   }
 }
