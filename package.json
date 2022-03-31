@@ -5,7 +5,16 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "firebase deploy",
+    "deploy:db": "firebase deploy --only database",
+    "deploy:fn": "firebase deploy --only functions",
+    "deploy:fs": "firebase deploy --only firestore",
+    "deploy:hs": "firebase deploy --only hosting",
+    "deploy:st": "firebase deploy --only storage",
+    "predeploy": "npm build",
+    "predeploy:hs": "npm build",
+    "serve:fn": "firebase serve --only functions"
   },
   "dependencies": {
     "10": "^0.0.1",

@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     editable: true,
-    fireUser: null
+    fireUser: null,
+    user: null
   },
   getters: {
   },
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     setFireUser (state, fu) {
       state.fireUser = fu
+    },
+    setUser (state, user) {
+      state.user = user
     }
   },
   actions: {
