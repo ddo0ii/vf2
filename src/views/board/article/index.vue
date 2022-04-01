@@ -1,5 +1,5 @@
 <template>
-  <!-- eslint-disable -->
+<!-- eslint-disable -->
   <div>
     <v-data-table
       :headers="headers"
@@ -17,11 +17,12 @@
         <display-time :time="item.createdAt"></display-time>
       </template>
       <template v-slot:item.title="{item}">
-        <a @click="openDialog(item)">{{ item.title }}</a>
+        <a @click="openDialog(item)">{{item.title}}</a>
       </template>
       <template v-slot:item.user.displayName="{item}">
         <display-user :user="item.user"></display-user>
       </template>
+
     </v-data-table>
     <v-dialog v-if="selectedItem" v-model="dialog" fullscreen>
       <display-content :item="selectedItem" @close="dialog=false"></display-content>

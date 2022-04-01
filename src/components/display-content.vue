@@ -1,12 +1,14 @@
 <template>
   <v-card>
     <v-toolbar color="primary" dark>
-      <v-toolbar-title>{{ item.title }}</v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-toolbar-title>
+        {{item.title}}
+      </v-toolbar-title>
+      <v-spacer/>
       <v-btn @click="articleWrite" icon><v-icon>mdi-pencil</v-icon></v-btn>
       <v-btn @click="$emit('close')" icon><v-icon>mdi-close</v-icon></v-btn>
     </v-toolbar>
-    <v-card-text>
+    <v-card-text >
       <viewer v-if="content" :initialValue="content"></viewer>
       <v-container v-else>
         <v-row justify="center" align="center">
@@ -20,7 +22,7 @@
         작성일: <display-time :time="item.createdAt"></display-time>
       </span>
     </v-card-actions>
-        <v-card-actions>
+    <v-card-actions>
       <v-spacer/>
       <span class="font-italic caption">
         수정일: <display-time :time="item.updatedAt"></display-time>
@@ -31,10 +33,14 @@
 <script>
 import axios from 'axios'
 import DisplayTime from '@/components/display-time'
-
 export default {
-  components: [DisplayTime],
+  components: { DisplayTime },
   props: ['item'],
+  data () {
+    return {
+      content: ''
+    }
+  },
   mounted () {
     console.log('mounted')
     this.fetch()
