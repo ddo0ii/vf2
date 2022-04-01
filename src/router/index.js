@@ -29,32 +29,32 @@ const routes = [
   {
     path: '/board',
     name: 'board',
-    component: () => import('../components/board/')
+    component: () => import('../views/board/')
   },
   {
     path: '/storage',
     name: 'storage',
-    component: () => import('../components/storage')
+    component: () => import('../views/storage')
   },
   {
     path: '/editor',
     name: 'editor',
-    component: () => import('../components/editor')
+    component: () => import('../views/editor')
   },
   {
     path: '/:collection/:document',
     name: 'collection-document',
-    component: () => import('../components/renderer')
+    component: () => import('../views/renderer')
   },
   {
     path: '/:collection/:document/:action',
     name: 'collection-document-action',
-    component: () => import('../components/renderer')
+    component: () => import('../views/renderer')
   },
   {
     path: '*',
     name: 'error',
-    component: () => import('../components/error')
+    component: () => import('../views/error')
   }
 ]
 

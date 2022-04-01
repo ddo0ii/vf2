@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import SiteTitle from '@/components/site/title'
-import SiteFooter from '@/components/site/footer'
-import SiteMenu from '@/components/site/menu'
-import SiteSign from '@/components/site/sign'
+import SiteTitle from '@/views/site/title'
+import SiteFooter from '@/views/site/footer'
+import SiteMenu from '@/views/site/menu'
+import SiteSign from '@/views/site/sign'
 export default {
   components: { SiteTitle, SiteFooter, SiteMenu, SiteSign },
   name: 'App',
