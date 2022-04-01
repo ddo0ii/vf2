@@ -6,7 +6,7 @@
     :options.sync="options"
     :items-per-page="5"
     :footer-props="{
-      'items-per-page-options':[5, 10, 20, 30, 40, 50],
+      'items-per-page-options':[5, 10, 20, 30, 50],
     }"
     must-sort
     item-key="id"
@@ -22,7 +22,10 @@ export default {
     return {
       headers: [
         { value: 'createdAt', text: '작성일' },
-        { value: 'title', text: '제목' }
+        { value: 'title', text: '제목' },
+        { value: 'user', text: '작성자' },
+        { value: 'readCount', text: '조회수' },
+        { value: 'commentCount', text: '댓글' }
       ],
       items: [],
       unsubscribe: null,
