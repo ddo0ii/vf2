@@ -1,12 +1,21 @@
 import Vue from 'vue'
-import Vuetify, { VSnackbar, VBtn, VIcon } from 'vuetify/lib/framework'
+import Vuetify, { VSnackbar, VBtn, VIcon } from 'vuetify/lib'
 import VuetifyToast from 'vuetify-toast-snackbar'
+
+import en from 'vuetify/es5/locale/en'
+import ko from 'vuetify/es5/locale/ko'
 
 Vue.use(Vuetify, {
   components: {
     VSnackbar,
     VBtn,
     VIcon
+  }
+})
+const VuetifyObj = new Vuetify({
+  lang: {
+    locales: { en, ko },
+    current: 'ko'
   }
 })
 Vue.use(VuetifyToast, {
@@ -33,8 +42,8 @@ Vue.use(VuetifyToast, {
       color: 'purple'
     }
   },
-  property: '$toast' // default
+  property: '$toast', // default
+  $vuetify: VuetifyObj.framework
 })
 
-export default new Vuetify({
-})
+export default VuetifyObj
