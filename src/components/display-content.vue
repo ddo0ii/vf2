@@ -2,7 +2,7 @@
   <v-card>
     <v-toolbar color="primary" dark>
       <v-toolbar-title>
-        {{item.title}}
+        {{item.title}} he
       </v-toolbar-title>
       <v-spacer/>
       <v-btn @click="articleWrite" icon><v-icon>mdi-pencil</v-icon></v-btn>
