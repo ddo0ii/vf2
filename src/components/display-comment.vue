@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <v-textarea v-model="comment" outlined label="댓글 작성" append-icon="mdi-send" @click:append="save" hide-details></v-textarea>
+      <v-textarea v-model="comment" rows="3" outlined label="댓글 작성" append-icon="mdi-send" @click:append="save" hide-details></v-textarea>
     </v-card-title>
     <template v-for="(item, i) in items">
       <v-list-item :key="item.id">
@@ -99,10 +99,11 @@ export default {
         }
       }
       const id = doc.createdAt.getTime().toString()
-      const batch = this.$firebase.firestore().batch()
-      batch.update(this.docRef, { commentCount: this.$firebase.firestore.FieldValue.increment(1) })
-      batch.set(this.docRef.collection('comments').doc(id), doc)
-      await batch.commit()
+      // const batch = this.$firebase.firestore().batch()
+      // batch.update(this.docRef, { commentCount: this.$firebase.firestore.FieldValue.increment(1) })
+      // batch.set(this.docRef.collection('comments').doc(id), doc)
+      // await batch.commit()
+      this.docRef.collection('comments').doc(id).set(doc)
       this.comment = ''
     }
   }
