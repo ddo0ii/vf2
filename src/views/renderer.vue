@@ -15,6 +15,7 @@ import BoardArticleForm from './board/article/form'
 import PageIndex from './page/index'
 import PageContent from './page/content'
 import ErrorPage from './error'
+
 export default {
   components: {
     BoardIndex, BoardContent, BoardForm, BoardArticleForm, PageIndex, PageContent, ErrorPage

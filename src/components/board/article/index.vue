@@ -4,7 +4,7 @@
     <v-data-table
       :headers="headers"
       :items="items"
-      :server-items-length="info.count"
+      :server-items-length="board.count"
       :options.sync="options"
       :items-per-page="5"
       :footer-props="{
@@ -17,26 +17,22 @@
         <display-time :time="item.createdAt"></display-time>
       </template>
       <template v-slot:item.title="{item}">
-        <a @click="openDialog(item)">{{item.title}}</a>
+        <a @click="read(item)">{{item.title}}</a>
       </template>
       <template v-slot:item.user.displayName="{item}">
         <display-user :user="item.user"></display-user>
       </template>
-
     </v-data-table>
-    <v-dialog v-if="selectedItem" v-model="dialog" fullscreen>
-      <display-content :document="document" :item="selectedItem" @close="dialog=false"></display-content>
-    </v-dialog>
   </div>
 </template>
 <script>
 import { head, last } from 'lodash'
 import DisplayTime from '@/components/display-time'
 import DisplayUser from '@/components/display-user'
-import DisplayContent from '@/components/display-content'
+
 export default {
-  components: { DisplayTime, DisplayUser, DisplayContent },
-  props: ['info', 'document'],
+  components: { DisplayTime, DisplayUser },
+  props: ['board', 'boardId'],
   data () {
     return {
       headers: [
@@ -52,13 +48,11 @@ export default {
         sortBy: ['createdAt'],
         sortDesc: [true]
       },
-      docs: [],
-      dialog: false,
-      selectedItem: null
+      docs: []
     }
   },
   watch: {
-    document () {
+    boardId () {
       this.subscribe(0)
     },
     options: {
@@ -90,10 +84,11 @@ export default {
   methods: {
     subscribe (arrow) {
       if (this.unsubscribe) this.unsubscribe()
+
       const order = this.options.sortBy[0]
       const sort = this.options.sortDesc[0] ? 'desc' : 'asc'
       const limit = this.options.itemsPerPage
-      const ref = this.$firebase.firestore().collection('boards').doc(this.document).collection('articles').orderBy(order, sort)
+      const ref = this.$firebase.firestore().collection('boards').doc(this.boardId).collection('articles').orderBy(order, sort)
       let query
       switch (arrow) {
         case -1: query = ref.endBefore(head(this.docs)).limitToLast(limit)
@@ -118,10 +113,10 @@ export default {
         })
       })
     },
-    openDialog (item) {
-      this.selectedItem = item
-      this.dialog = true
+    read (item) {
+      this.$router.push({ path: this.$route.path + '/' + item.id })
     }
+
   }
 }
 </script>

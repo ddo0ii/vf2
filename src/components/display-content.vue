@@ -37,6 +37,7 @@
 import axios from 'axios'
 import DisplayTime from '@/components/display-time'
 import DisplayComment from '@/components/display-comment'
+
 export default {
   components: { DisplayTime, DisplayComment },
   props: ['document', 'item'],

@@ -14,6 +14,8 @@
         <h1 class="display-2 font-weight-bold mb-3">
           Welcome to Vuetify
         </h1>
+        <v-btn>ijij</v-btn>
+
         <p class="subheading font-weight-regular">
           For help and collaboration with other Vuetify developers,
           <br>please join our online
@@ -138,7 +140,7 @@ export default {
       },
       {
         text: 'Select a layout',
-        href: 'https://vuetifyjs.com/getting-started/pre-made-layouts'
+        href: 'https://vuetifyjs.com/layout/pre-defined'
       },
       {
         text: 'Frequently Asked Questions',

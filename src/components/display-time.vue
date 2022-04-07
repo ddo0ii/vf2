@@ -1,10 +1,10 @@
 <template>
-    <v-tooltip>
-        <template v-slot:activator="{on}">
-            <span v-on="on">{{ displayTime }}</span>
-        </template>
-        <span>{{ time.toLocaleString() }}</span>
-    </v-tooltip>
+  <v-tooltip bottom>
+    <template v-slot:activator="{on}">
+      <span v-on="on">{{displayTime}}</span>
+    </template>
+    <span>{{time.toLocaleString()}}</span>
+  </v-tooltip>
 </template>
 <script>
 export default {

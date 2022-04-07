@@ -27,6 +27,7 @@ import { last } from 'lodash'
 import DisplayTime from '@/components/display-time'
 import DisplayUser from '@/components/display-user'
 const LIMIT = 5
+
 export default {
   components: { DisplayTime, DisplayUser },
   props: ['article', 'docRef'],
