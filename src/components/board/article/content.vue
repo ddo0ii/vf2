@@ -93,7 +93,6 @@ import axios from 'axios'
 import DisplayTime from '@/components/display-time'
 import DisplayComment from '@/components/display-comment'
 import DisplayUser from '@/components/display-user'
-
 export default {
   components: { DisplayTime, DisplayComment, DisplayUser },
   props: ['boardId', 'articleId'],
@@ -119,6 +118,9 @@ export default {
     }
   },
   watch: {
+    boardId () {
+      this.subscribe()
+    },
     articleId () {
       this.subscribe()
     }
@@ -188,10 +190,8 @@ export default {
       let sn
       if (arrow < 0) sn = await ref.endBefore(this.doc).limitToLast(1).get()
       else sn = await ref.startAfter(this.doc).limit(1).get()
-
       if (sn.empty) return this.$toast.info('더이상 페이지가 없습니다')
       const doc = sn.docs[0]
-
       const us = this.$route.path.split('/')
       us.pop()
       us.push(doc.id)
