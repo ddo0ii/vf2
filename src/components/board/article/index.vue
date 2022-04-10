@@ -39,7 +39,7 @@
       </v-card>
     </template>
     <v-list-item v-if="lastDoc && items.length < board.count">
-      <v-btn @click="more" v-intersect="onIntersect" text color="primary" block>더보기</v-btn>
+      <v-btn @click="more" v-intersect="onIntersect" text color="primary" block :loading="loading">더보기</v-btn>
     </v-list-item>
   </v-container>
   <v-container fluid v-else>
@@ -52,7 +52,9 @@
 import { last } from 'lodash'
 import DisplayTime from '@/components/display-time'
 import DisplayUser from '@/components/display-user'
+
 const LIMIT = 5
+
 export default {
   components: { DisplayTime, DisplayUser },
   props: ['board', 'boardId'],
@@ -63,7 +65,8 @@ export default {
       ref: null,
       lastDoc: null,
       order: 'createdAt',
-      sort: 'desc'
+      sort: 'desc',
+      loading: false
     }
   },
   computed: {
@@ -120,6 +123,7 @@ export default {
       this.ref = this.$firebase.firestore()
         .collection('boards').doc(this.boardId)
         .collection('articles').orderBy(this.order, this.sort).limit(LIMIT)
+
       this.unsubscribe = this.ref.onSnapshot(sn => {
         if (sn.empty) {
           this.items = []
@@ -133,8 +137,14 @@ export default {
     },
     async more () {
       if (!this.lastDoc) throw Error('더이상 데이터가 없습니다')
-      const sn = await this.ref.startAfter(this.lastDoc).get()
-      this.snapshotToItems(sn)
+      if (this.loading) return
+      this.loading = true
+      try {
+        const sn = await this.ref.startAfter(this.lastDoc).get()
+        this.snapshotToItems(sn)
+      } finally {
+        this.loading = false
+      }
     },
     onIntersect (entries, observer, isIntersecting) {
       if (isIntersecting) this.more()
