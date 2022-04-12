@@ -1,6 +1,5 @@
 <template>
   <v-container fluid v-if="items.length" class="pa-0">
-    asdf
     <template v-for="(item, i) in items">
       <template v-if="$store.state.boardTypeList">
         <v-list-item three-line :key="item.id" :to="category ? `${boardId}/${item.id}?category=${category}`:`${boardId}/${item.id}`">
