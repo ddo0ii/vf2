@@ -3,7 +3,17 @@
     <v-card v-if="article" outlined :tile="$vuetify.breakpoint.xs">
       <v-toolbar color="transparent" dense flat>
         <v-toolbar-title>
-          <v-chip color="info" small label class="mr-4">{{article.category}}</v-chip>
+          <!-- <v-chip color="info" small label class="mr-4">{{article.category}}</v-chip> -->
+          <v-btn
+            color="info"
+            depressed
+            small
+            class="mr-4"
+            @click="back"
+          >
+            {{article.category}}
+            <v-icon v-if="!category" right>mdi-menu-right</v-icon>
+          </v-btn>
           {{article.title}}
         </v-toolbar-title>
         <v-spacer/>
@@ -93,9 +103,10 @@ import axios from 'axios'
 import DisplayTime from '@/components/display-time'
 import DisplayComment from '@/components/display-comment'
 import DisplayUser from '@/components/display-user'
+
 export default {
   components: { DisplayTime, DisplayComment, DisplayUser },
-  props: ['boardId', 'articleId'],
+  props: ['boardId', 'articleId', 'category', 'tag'],
   data () {
     return {
       content: '',
@@ -166,7 +177,8 @@ export default {
     back () {
       const us = this.$route.path.split('/')
       us.pop()
-      this.$router.push({ path: us.join('/') })
+      if (this.category) this.$router.push({ path: us.join('/'), query: { category: this.category } })
+      else this.$router.push({ path: us.join('/') })
     },
     async like () {
       if (!this.fireUser) throw Error('로그인이 필요합니다')
@@ -184,18 +196,31 @@ export default {
     },
     async go (arrow) {
       if (!this.doc) return
-      const ref = this.$firebase.firestore()
-        .collection('boards').doc(this.boardId)
-        .collection('articles').orderBy('createdAt', 'desc')
+      let ref
+      if (!this.category) {
+        ref = this.$firebase.firestore()
+          .collection('boards').doc(this.boardId)
+          .collection('articles')
+          .orderBy('createdAt', 'desc')
+      } else {
+        ref = this.$firebase.firestore()
+          .collection('boards').doc(this.boardId)
+          .collection('articles')
+          .where('category', '==', this.category)
+          .orderBy('createdAt', 'desc')
+      }
       let sn
       if (arrow < 0) sn = await ref.endBefore(this.doc).limitToLast(1).get()
       else sn = await ref.startAfter(this.doc).limit(1).get()
+
       if (sn.empty) return this.$toast.info('더이상 페이지가 없습니다')
       const doc = sn.docs[0]
+
       const us = this.$route.path.split('/')
       us.pop()
       us.push(doc.id)
-      this.$router.push({ path: us.join('/') })
+      if (this.category) this.$router.push({ path: us.join('/'), query: { category: this.category } })
+      else this.$router.push({ path: us.join('/') })
     }
   }
 }
