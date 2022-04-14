@@ -1,7 +1,7 @@
 <template>
   <v-toolbar-title>
     {{ title }}
-    <v-btn icon @click="openDialog"><v-icon>mdi-pencil</v-icon></v-btn>
+    <v-btn  v-if="$store.state.editable" icon @click="openDialog"><v-icon>mdi-pencil</v-icon></v-btn>
     <v-dialog v-model="dialog" max-width="400">
       <v-card>
         <v-card-title>
@@ -29,6 +29,7 @@ export default {
   methods: {
     openDialog () {
       this.dialog = true
+      this.text = this.title
     },
     async save () {
       try {
