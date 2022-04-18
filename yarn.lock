@@ -8013,3 +8013,8 @@
     "is-ci" "^1.0.10"
     "normalize-path" "^1.0.0"
     "strip-indent" "^2.0.0"
+
+"youtube-url@^0.5.0":
+  "integrity" "sha1-k1EH76/v0g6l78AU2PnI84Xg7Ro="
+  "resolved" "https://registry.npmjs.org/youtube-url/-/youtube-url-0.5.0.tgz"
+  "version" "0.5.0"
