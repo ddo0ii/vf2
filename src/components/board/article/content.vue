@@ -4,7 +4,7 @@
   </v-container>
   <v-container fluid v-else-if="loaded && !article">
     <v-alert type="warning" border="left" class="mb-0">
-      게시물이 없습니다testc
+      게시물이 없습니다
     </v-alert>
   </v-container>
   <v-container v-else fluid :class="$vuetify.breakpoint.xs ? 'pa-0' : ''">
