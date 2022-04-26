@@ -22,7 +22,7 @@
     "axios": "^0.26.1",
     "browser-image-resizer": "^2.2.1",
     "core-js": "^3.8.3",
-    "firebase": "^9.6.9",
+    "firebase": "^9.6.11",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.19.0",
     "moment": "^2.29.3",
@@ -54,5 +54,17 @@
     "vue-cli-plugin-vuetify": "~2.4.8",
     "vue-template-compiler": "^2.6.14",
     "vuetify-loader": "^1.7.0"
-  }
+  },
+  "description": "vue&firebase 2",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soyhandong/vf2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soyhandong/vf2/issues"
+  },
+  "homepage": "https://github.com/soyhandong/vf2#readme"
 }

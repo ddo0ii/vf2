@@ -22,7 +22,7 @@
             hide-details/>
         </v-sheet>
         <template v-if="!$vuetify.breakpoint.xs">
-          <v-icon color="error" left v-if="newCheck(board.updatedAt)">mdi-fire</v-icon>
+          <v-icon color="error" left v-if="newCheck(board.updatedAt, 'days', 1)">mdi-fire</v-icon>
           <span v-text="board.title"></span>
         </template>
         <v-spacer/>
@@ -101,7 +101,7 @@
                 등록된 종류
               </v-list-item-title>
               <v-list-item-subtitle class="white-space">
-                <v-chip color="info" label small v-for="item in board.categories" :key="item" class="mt-2 mr-2" v-text="item"></v-chip>
+                <v-chip color="primary" label small outlined v-for="item in board.categories" :key="item" class="mt-2 mr-2" v-text="item"></v-chip>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
