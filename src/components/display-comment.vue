@@ -5,7 +5,7 @@
         <v-textarea
           v-model="comment"
           outlined
-          label="댓글 작성"
+          label="댓글 작성!"
           placeholder="Ctrl + Enter로 작성 가능"
           append-icon="mdi-comment-plus"
           @click:append="save"
