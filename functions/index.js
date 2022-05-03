@@ -1,7 +1,7 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const serviceAccount = require('./key.json')
-const region = functions.config().admin.region || 'us-central1'
+const region = functions.config().admin.region || 'asia-northeast3'
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
