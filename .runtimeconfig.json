@@ -1,0 +1,12 @@
+{
+  "algolia": {
+    "app_id": "8S9DYEE6OA",
+    "api_key": "a9b5945bd0e22218da48f34d458e7851"
+  },
+  "admin": {
+    "email": "21500035@handong.edu",
+    "bucket_url": "gs://memi-vf2-6d3da.appspot.com",
+    "region": "asia-northeast3",
+    "db_url": "https://memi-vf2-6d3da-default-rtdb.firebaseio.com/"
+  }
+}
