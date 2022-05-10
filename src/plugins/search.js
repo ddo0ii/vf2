@@ -7,7 +7,7 @@ Vue.prototype.$ags = index
 
 const findData = async () => {
   try {
-    const responses = await index.search('정부가')
+    const responses = await index.search('혼자가 좋아')
     console.log(responses)
   } catch (e) {
     console.log('al err')
