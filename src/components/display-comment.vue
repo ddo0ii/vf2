@@ -21,9 +21,20 @@
       <v-divider :key="i" v-if="i > 0 && !replyDepth(item)"></v-divider>
       <v-list-item :key="item.id">
         <v-list-item-content>
-          <v-list-item-subtitle v-if="!item.edit" class="black--text white-space">
-            <v-icon color="primary" v-for="i in replyDepth(item)" :key="i">mdi-subdirectory-arrow-right</v-icon>
-            <v-icon color="error" left v-if="newCheck(item.updatedAt, 'minutes', 10)">mdi-fire</v-icon> {{item.comment}}
+          <v-list-item-subtitle
+            v-if="!item.edit"
+            class="black--text white-space"
+          >
+            <v-icon color="primary" v-for="i in replyDepth(item)" :key="i"
+              >mdi-subdirectory-arrow-right</v-icon
+            >
+            <v-icon
+              color="error"
+              left
+              v-if="newCheck(item.updatedAt, 'minutes', 10)"
+              >mdi-fire</v-icon
+            >
+            {{ item.comment }}
             <!-- <span>{{item.no}}</span> 디버깅용 -->
           </v-list-item-subtitle>
           <v-list-item-subtitle v-else>
@@ -43,13 +54,15 @@
             ></v-textarea>
           </v-list-item-subtitle>
           <v-list-item-subtitle class="d-flex justify-end align-center">
-            <span class="font-italic caption mr-4"><display-time :time="item.createdAt"></display-time></span>
+            <span class="font-italic caption mr-4"
+              ><display-time :time="item.createdAt"></display-time
+            ></span>
             <display-user :user="item.user" size="small"></display-user>
           </v-list-item-subtitle>
           <v-list-item-title class="d-flex justify-end">
             <v-btn
-              v-if="(fireUser && fireUser.uid === item.uid)"
-              @click="item.edit=!item.edit"
+              v-if="fireUser && fireUser.uid === item.uid"
+              @click="item.edit = !item.edit"
               :color="item.edit ? 'warning' : 'primary'"
               text
             >
@@ -75,10 +88,20 @@
               언급
             </v-btn>
             <v-btn @click="like(item)" text>
-              <v-icon left :color="liked(item) ? 'success': ''">mdi-thumb-up</v-icon>
-              <span>{{item.likeCount}}</span>
+              <v-icon left :color="liked(item) ? 'success' : ''"
+                >mdi-thumb-up</v-icon
+              >
+              <span>{{ item.likeCount }}</span>
             </v-btn>
-            <v-btn color="error" icon @click="remove(item)" v-if="(fireUser && fireUser.uid === item.uid) || (user && user.level === 0)">
+            <v-btn
+              color="error"
+              icon
+              @click="remove(item)"
+              v-if="
+                (fireUser && fireUser.uid === item.uid) ||
+                (user && user.level === 0)
+              "
+            >
               <v-icon>mdi-delete</v-icon>
             </v-btn>
           </v-list-item-title>
@@ -95,7 +118,8 @@
               auto-grow
               rows="1"
               clearable
-              class="mt-2"></v-textarea>
+              class="mt-2"
+            ></v-textarea>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -108,12 +132,13 @@
         v-intersect="onIntersect"
         text
         color="primary"
-        block>
+        block
+      >
         <v-icon>mdi-dots-horizontal</v-icon>더보기
       </v-btn>
     </v-list-item>
     <template v-else>
-      <v-divider v-if="items.length"/>
+      <v-divider v-if="items.length" />
       <v-card-title>
         <v-textarea
           v-model="comment"
@@ -126,7 +151,8 @@
           hide-details
           auto-grow
           rows="1"
-          clearable />
+          clearable
+        />
       </v-card-title>
     </template>
   </v-card>
@@ -173,8 +199,8 @@ export default {
   methods: {
     snapshotToItems (sn) {
       this.lastDoc = last(sn.docs)
-      sn.docs.forEach(doc => {
-        const findItem = this.items.find(item => doc.id === item.id)
+      sn.docs.forEach((doc) => {
+        const findItem = this.items.find((item) => doc.id === item.id)
         const item = doc.data()
         if (!findItem) {
           item.id = doc.id
@@ -197,20 +223,29 @@ export default {
     subscribe () {
       if (this.unsubscribe) this.unsubscribe()
       this.items = []
-      this.unsubscribe = this.docRef.collection('comments').orderBy('no', 'asc').limit(LIMIT).onSnapshot(sn => {
-        if (sn.empty) {
-          this.items = []
-          return
-        }
-        this.snapshotToItems(sn)
-      })
+      this.unsubscribe = this.docRef
+        .collection('comments')
+        .orderBy('no', 'asc')
+        .limit(LIMIT)
+        .onSnapshot((sn) => {
+          if (sn.empty) {
+            this.items = []
+            return
+          }
+          this.snapshotToItems(sn)
+        })
     },
     async more () {
       if (!this.lastDoc) throw Error('더이상 데이터가 없습니다')
       if (this.loading) return
       this.loading = true
       try {
-        const sn = await this.docRef.collection('comments').orderBy('no', 'asc').startAfter(this.lastDoc).limit(LIMIT).get()
+        const sn = await this.docRef
+          .collection('comments')
+          .orderBy('no', 'asc')
+          .startAfter(this.lastDoc)
+          .limit(LIMIT)
+          .get()
         this.snapshotToItems(sn)
       } finally {
         this.loading = false
@@ -221,11 +256,11 @@ export default {
     },
     async save () {
       if (!this.fireUser) throw Error('로그인이 필요합니다')
-      if (this.article.commentCount > 100) throw Error('댓글 개수 허용치를 넘었습니다')
+      if (this.article.commentCount > 100) { throw Error('댓글 개수 허용치를 넘었습니다') }
       if (!this.comment) throw Error('내용을 작성해야 합니다')
       if (this.comment.length > 300) throw Error('문자 허용치를 넘었습니다')
 
-      const rs = this.items.filter(el => el.no % 10000 === 0)
+      const rs = this.items.filter((el) => el.no % 10000 === 0)
       const doc = {
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -246,24 +281,24 @@ export default {
     },
     async saveReply (item) {
       if (!this.fireUser) throw Error('로그인이 필요합니다')
-      if (this.article.commentCount > 100) throw Error('댓글 개수 허용치를 넘었습니다')
+      if (this.article.commentCount > 100) { throw Error('댓글 개수 허용치를 넘었습니다') }
       if (!item.replyComment) throw Error('내용을 작성해야 합니다')
-      if (item.replyComment.length > 300) throw Error('문자 허용치를 넘었습니다')
+      if (item.replyComment.length > 300) { throw Error('문자 허용치를 넘었습니다') }
       const depth = this.replyDepth(item)
       if (depth > 1) throw Error('대대댓글은 허용하지 않습니다')
       let no = 0
 
       if (!depth) {
         const max = item.no + 10000
-        const rs = this.items.filter(el => {
-          return el.no > item.no && el.no < max && (el.no % 100 === 0)
+        const rs = this.items.filter((el) => {
+          return el.no > item.no && el.no < max && el.no % 100 === 0
         })
         if (rs.length) no = last(rs).no + 100
         else no = item.no + 100
       } else {
         const max = item.no + 100
-        const rs = this.items.filter(el => {
-          return el.no > item.no && el.no < max && (el.no % 100 > 0)
+        const rs = this.items.filter((el) => {
+          return el.no > item.no && el.no < max && el.no % 100 > 0
         })
         if (rs.length) no = last(rs).no + 1
         else no = item.no + 1
@@ -291,7 +326,7 @@ export default {
         item.replyComment = ''
       }
 
-      const findItem = this.items.find(el => id === el.id)
+      const findItem = this.items.find((el) => id === el.id)
       if (findItem) return
       doc.id = id
       doc.edit = false
@@ -319,18 +354,31 @@ export default {
     async like (comment) {
       if (!this.fireUser) throw Error('로그인이 필요합니다')
       if (this.liked(comment)) {
-        await this.docRef.collection('comments').doc(comment.id).update({
-          likeCount: this.$firebase.firestore.FieldValue.increment(-1),
-          likeUids: this.$firebase.firestore.FieldValue.arrayRemove(this.fireUser.uid)
-        })
+        await this.docRef
+          .collection('comments')
+          .doc(comment.id)
+          .update({
+            likeCount: this.$firebase.firestore.FieldValue.increment(-1),
+            likeUids: this.$firebase.firestore.FieldValue.arrayRemove(
+              this.fireUser.uid
+            )
+          })
       } else {
-        await this.docRef.collection('comments').doc(comment.id).update({
-          likeCount: this.$firebase.firestore.FieldValue.increment(1),
-          likeUids: this.$firebase.firestore.FieldValue.arrayUnion(this.fireUser.uid)
-        })
+        await this.docRef
+          .collection('comments')
+          .doc(comment.id)
+          .update({
+            likeCount: this.$firebase.firestore.FieldValue.increment(1),
+            likeUids: this.$firebase.firestore.FieldValue.arrayUnion(
+              this.fireUser.uid
+            )
+          })
       }
-      if (this.items.findIndex(el => el.id === comment.id) < LIMIT) return
-      const doc = await this.docRef.collection('comments').doc(comment.id).get()
+      if (this.items.findIndex((el) => el.id === comment.id) < LIMIT) return
+      const doc = await this.docRef
+        .collection('comments')
+        .doc(comment.id)
+        .get()
       const item = doc.data()
       comment.comment = item.comment
       comment.likeCount = item.likeCount
@@ -346,7 +394,7 @@ export default {
       })
       if (!r.value) return
       await this.docRef.collection('comments').doc(comment.id).delete()
-      const i = this.items.findIndex(el => el.id === comment.id)
+      const i = this.items.findIndex((el) => el.id === comment.id)
       this.items.splice(i, 1)
     },
     async update (item) {
