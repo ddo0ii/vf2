@@ -9,25 +9,36 @@
   </v-container>
 </template>
 <script>
+import setMeta from "@/util/setMeta";
+
 export default {
-  data () {
+  data() {
     return {
       empty: false,
-      loaded: false
-    }
+      loaded: false,
+    };
   },
-  mounted () {
-    this.goPage()
+  mounted() {
+    setMeta({
+      title: "메인페이지",
+      description: "메인페이지",
+      image: "/logo.png",
+    });
+    this.goPage();
   },
   methods: {
-    async goPage () {
-      const sn = await this.$firebase.firestore()
-        .collection('boards').orderBy('count', 'desc').limit(1).get()
-      this.loaded = true
-      if (sn.empty) return
-      this.empty = sn.empty
-      this.$router.push('/board/' + sn.docs[0].id)
-    }
-  }
-}
+    async goPage() {
+      const sn = await this.$firebase
+        .firestore()
+        .collection("boards")
+        .orderBy("count", "desc")
+        .limit(1)
+        .get();
+      this.loaded = true;
+      if (sn.empty) return;
+      this.empty = sn.empty;
+      this.$router.push("/board/" + sn.docs[0].id);
+    },
+  },
+};
 </script>

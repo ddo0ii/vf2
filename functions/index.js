@@ -195,12 +195,10 @@ exports.onCreateBoardArticle = functions
     const set = {
       count: admin.firestore.FieldValue.increment(1),
     };
-    if (doc.category) {
+    if (doc.category)
       set.categories = admin.firestore.FieldValue.arrayUnion(doc.category);
-    }
-    if (doc.tags.length) {
+    if (doc.tags.length)
       set.tags = admin.firestore.FieldValue.arrayUnion(...doc.tags);
-    }
     try {
       await db.collection("boards").doc(context.params.bid).update(set);
     } catch (e) {
@@ -267,15 +265,12 @@ exports.onUpdateBoardArticle = functions
     const beforeDoc = change.before.data();
     const doc = change.after.data();
     if (doc.objectID !== beforeDoc.objectID) return;
-    if (doc.category && beforeDoc.category !== doc.category) {
+    if (doc.category && beforeDoc.category !== doc.category)
       set.categories = admin.firestore.FieldValue.arrayUnion(doc.category);
-    }
-    if (doc.tags.length && !isEqual(beforeDoc.tags, doc.tags)) {
+    if (doc.tags.length && !isEqual(beforeDoc.tags, doc.tags))
       set.tags = admin.firestore.FieldValue.arrayUnion(...doc.tags);
-    }
-    if (Object.keys(set).length) {
+    if (Object.keys(set).length)
       await db.collection("boards").doc(context.params.bid).update(set);
-    }
 
     const deleteImages = beforeDoc.images.filter((before) => {
       return !doc.images.some((after) => before.id === after.id);
