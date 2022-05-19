@@ -19,21 +19,13 @@ export default {
     }
   },
   mounted () {
-    setMeta({
-      title: '메인페이지',
-      description: '메인페이지',
-      image: '/logo.png'
-    })
+    setMeta({ title: '메인페이지', description: '메인페이지', image: '/logo.png' })
     this.goPage()
   },
   methods: {
     async goPage () {
-      const sn = await this.$firebase
-        .firestore()
-        .collection('boards')
-        .orderBy('count', 'desc')
-        .limit(1)
-        .get()
+      const sn = await this.$firebase.firestore()
+        .collection('boards').orderBy('count', 'desc').limit(1).get()
       this.loaded = true
       if (sn.empty) return
       this.empty = sn.empty
