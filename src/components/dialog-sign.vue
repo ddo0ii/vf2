@@ -27,7 +27,7 @@
             <v-alert color="primary" border="left" outlined height="100%">
               <ul>
                 <li>소셜 로그인 시 회원가입이 필요 없습니다🎶</li>
-                <li>소셜 가입시 이메일(email), 표시이름(displayName: 실명 아님), 사진(photoURL: 소셜 제공)이 저장됩니다.</li>
+                <li>소셜 가입시 이메일(email), 표시이름(displayName: 실명 아님), 사진(photoURL: 소셜 제공)이 저장됩니다. 💥</li>
                 <li>이메일 가입시 이메일(email)과 표시이름(displayName: 실명 아님)이 저장됩니다.</li>
                 <li>이메일 가입시 메일 확인 후 정상 동작합니다</li>
                 <li>패스워드는 구글 정책(firebase auth)에 의해 암호화되어 저장되며 이 사이트에서는 수집하지 않습니다</li>
