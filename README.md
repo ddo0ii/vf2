@@ -92,3 +92,13 @@ public/logo.png 추가
 public/favicon.ico 추가
 
 없을 경우 resource 디렉토리에서 복사해서 넣어야함
+
+database rules
+// {
+//   "rules": {
+//     ".read": true,
+//     "site": {
+//       ".write": "root.child('users').child(auth.uid).child('level').val() == 0"
+//     }
+//   }
+// }
